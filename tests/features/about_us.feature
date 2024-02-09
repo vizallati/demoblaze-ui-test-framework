@@ -4,5 +4,5 @@ Feature: About Us
 
   Scenario: View content in about us pop up
     Given I navigate to the homepage
-    When I click on the about us option on the navigation bar
+    When I click on the "about_us" option on the navigation bar
     Then Youtube video should be displayed

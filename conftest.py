@@ -1,5 +1,3 @@
-from os.path import exists
-
 import allure
 import pytest
 from selenium import webdriver
@@ -7,7 +5,6 @@ from core.base_actions import BaseActions
 from core.utils import load_yaml, Context, add_tags_allure, add_links_allure
 from allure_commons import plugin_manager
 from allure_pytest_bdd.pytest_bdd_listener import PytestBDDListener
-
 from dsl.pages.about_us import AboutUs
 from dsl.pages.contact import Contact
 from dsl.pages.sign_in import SignIn
@@ -20,7 +17,9 @@ def load_config():
     load_yaml('locators.yml')
     Context.browser = webdriver.Edge()
     Context.browser.maximize_window()
+
     yield
+
     Context.browser.close()
 
 
@@ -31,15 +30,6 @@ def init_classes():
     Context.sign_in = SignIn(Context.browser)
     Context.about_us = AboutUs(Context.browser)
     Context.contact = Contact(Context.browser)
-
-
-@pytest.fixture(autouse=True)
-def delete_response_attribute():
-    """Fixture to delete the 'response' attribute from the 'Context' class after each test."""
-    yield
-    if hasattr(Context, 'response'):
-        delattr(Context, 'response')
-
 
 
 @pytest.hookimpl(hookwrapper=True)
