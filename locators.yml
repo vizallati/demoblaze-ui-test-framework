@@ -1,0 +1,37 @@
+locators:
+  pages:
+    home_page:
+      categories:
+        phones: //*[contains(@onclick, "byCat('phone')")]
+        laptops: //*[contains(@onclick, "byCat('notebook')")]
+        monitors: //*[contains(@onclick, "byCat('monitor')")]
+      nav_bar:
+        cart: //*[@id="cartur"]
+        login: //*[@id="login2"]
+        logout: //*[@id="logout2"]
+        sign_up: //*[@id="signin2"]
+        contact: //*[contains(@data-target, "#exampleModal")]
+        about_us: //*[contains(@data-target, "#videoModal")]
+        welcome_message: //*[@id="nameofuser"]
+  pop_ups:
+    login:
+      username_field: //input[@id="loginusername"]
+      password_field: //input[@id="loginpassword"]
+      login_button: //*[contains(@onclick, "logIn")]
+      close_button: //*[@id="logInModal"]/div/div/div[1]/button/span
+    sign_up:
+      label_id: //*[@id="signInModalLabel"]
+      username_field: //input[@id="sign-username"]
+      password_field: //input[@id="sign-password"]
+      signup_button: //*[contains(@onclick, "register()")]
+      close_button: //*[@id="signInModal"]/div/div/div[1]/button/span
+    about_us:
+      youtube_video: //*[@id="example-video_html5_api"]
+    contact:
+      email_field: //*[@id="recipient-email"]
+      name_field: //*[@id="recipient-name"]
+      message_field: //*[@id="message-text"]
+      send_button: //*[contains(@onclick, "send()")]
+      close_button: //*[@id="exampleModal"]/div/div/div[3]/button[1]
+
+
