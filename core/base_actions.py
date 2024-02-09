@@ -7,16 +7,38 @@ import logging
 
 
 class BaseActions:
+    """
+      Base class for common actions performed on web elements.
+
+      This class provides methods for interacting with web elements, such as finding elements,
+      waiting for elements to be clickable, clicking on elements, sending keys, navigating to URLs,
+      waiting for alerts, and getting text from elements.
+
+      Args:
+          driver: The WebDriver instance to use for interacting with the browser.
+
+      Attributes:
+          driver: The WebDriver instance used for browser interaction.
+
+    """
     def __init__(self, driver):
         self.driver = driver
 
     def find_element(self, by, web_element):
         """
-        This function finds a web-element
-        :param by: method to locate web-element
-        :param web_element: locator
-        :return: returns a web-element
+        Find and return a web element using the specified locator method and value.
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+
+        Returns:
+            selenium.webdriver.remote.webelement.WebElement: The located web element.
+
+        Raises:
+            Exception: If an error occurs while finding the element.
         """
+
         try:
             element = self.driver.find_element(by, web_element)
             logging.info(f'Web-element successfully returned: {web_element}')
@@ -27,11 +49,20 @@ class BaseActions:
 
     def wait_for_element(self, by, web_element, max_retries=3):
         """
-        This method waits for a web-element to be present in the DOM with retry mechanism
-        :param by: method to locate web-element
-        :param web_element: locator
-        :param max_retries: maximum number of retries
+        Waits for a web element to be clickable and returns it.
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+            max_retries (int, optional): The maximum number of retries (default is 3).
+
+        Returns:
+            selenium.webdriver.remote.webelement.WebElement: The located web element.
+
+        Raises:
+            TimeoutException: If the element is not found within the specified timeout.
         """
+
         for retry in range(max_retries):
             try:
                 element = WebDriverWait(self.driver, Timeout.LONG_ELEMENT_WAIT.value).until(
@@ -40,7 +71,7 @@ class BaseActions:
                 return element
             except TimeoutException:
                 if retry < max_retries - 1:
-                    # self.driver.refresh()
+                    self.driver.refresh()
                     logging.info(f'Retrying ({retry + 1}/{max_retries}) after page refresh...')
                 else:
                     logging.error(f'Failed to locate web-element: {web_element} after {max_retries} retries')
@@ -48,10 +79,16 @@ class BaseActions:
 
     def click_on_element(self, by, web_element):
         """
-        This function clicks on a web-element
-        :param by: method to locate web-element
-        :param web_element: locator
+        Clicks on a web element identified by the specified locator method and value.
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+
+        Raises:
+            Exception: If an error occurs while clicking the element.
         """
+
         try:
             element_to_click = self.wait_for_element(by, web_element)
             element_to_click.click()
@@ -62,12 +99,18 @@ class BaseActions:
 
     def send_keys(self, by, web_element, text, max_retries=3):
         """
-        This function sets keys to a field
-        :param by: method to locate web-element
-        :param web_element: locator
-        :param text: text to enter
-        :param max_retries: maximum number of retries
+        Sends text to a web element identified by the specified locator method and value.
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+            text (str): The text to send to the element.
+            max_retries (int, optional): The maximum number of retries (default is 3).
+
+        Raises:
+            Exception: If an error occurs while sending keys to the element.
         """
+
         for retry in range(max_retries):
             try:
                 element_to_send_keys = self.wait_for_element(by, web_element)
@@ -84,9 +127,15 @@ class BaseActions:
 
     def navigate_to_url(self, url):
         """
-        This function helps navigate to a new url
-        :param url: Url to navigate to
+        Navigates the browser to the specified URL.
+
+        Args:
+            url (str): The URL to navigate to.
+
+        Raises:
+            Exception: If an error occurs while navigating to the URL.
         """
+
         try:
             self.driver.get(url)
             logging.info(f'Successfully navigated to URL: {url}')
@@ -94,21 +143,17 @@ class BaseActions:
             logging.error(error)
             raise error
 
-    def clear_text(self, by, web_element):
+    def wait_for_alert(self, timeout=Timeout.SHORT_ELEMENT_WAIT.value):
         """
-        This function clears text in a field
-        :param by: method to locate web-element
-        :param web_element: locator
-        """
-        try:
-            element_to_clear = self.wait_for_element(by=by, web_element=web_element)
-            element_to_clear.clear()
-            logging.info(f'Successfully cleared text on web-element: {web_element}')
-        except Exception as error:
-            logging.error(error)
-            raise error
+        Waits for an alert to be present and returns it.
 
-    def wait_for_alert(self, timeout=6):
+        Args:
+            timeout (int, optional): The maximum time to wait for the alert to appear, in seconds (default is 6).
+
+        Returns:
+            selenium.webdriver.common.alert.Alert: The located alert object.
+        """
+
         return WebDriverWait(self.driver, timeout).until(expected_conditions.alert_is_present())
 
     def refresh_page(self):
@@ -116,11 +161,19 @@ class BaseActions:
 
     def get_element_text(self, by, web_element):
         """
-        This function gets the text embedded in a web-element
-        :param by: method to locate web-element
-        :param web_element: locator
-        :return: returns text
+        Gets the text content of a web element identified by the specified locator method and value.
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+
+        Returns:
+            str: The text content of the located web element.
+
+        Raises:
+            Exception: If an error occurs while retrieving the text content of the element.
         """
+
         try:
             element = self.wait_for_element(by=by, web_element=web_element)
             text = element.text

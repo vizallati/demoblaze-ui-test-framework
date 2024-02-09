@@ -22,7 +22,7 @@ def fill_in_sign_in_pop_up():
 
 @when('I try to create account with preexisting username', target_fixture="actual_alert_message")
 def create_account_already_used_username():
-    Context.sign_up.refresh_page()
+    Context.sign_in.refresh_page()
     navigate_to_nav_bar_option('sign_up')
     return Context.sign_up.create_account(username=Context.username, password=Context.password)
 
