@@ -5,24 +5,24 @@ Feature: Sign Up
     Given I navigate to the homepage
     When I click on the "sign_up" option on the navigation bar
     And I fill in my username, password and click on the signup button
-    Then Alert returns correct "Sign up successful." message
+    Then Alert returns "Sign up successful."
 
   Scenario: Create account with preexisting username
-    Given I have a user already created
+    Given I have an account already created
     When I try to create account with preexisting username
-    Then Alert returns correct "This user already exist." message
+    Then Alert returns "This user already exist."
 
   Scenario: Signup without filling username and password
     Given I navigate to the homepage
     And I click on the "sign_up" option on the navigation bar
     When I click signup button without filling in username and password
-    Then Alert returns correct "Please fill out Username and Password." message
+    Then Alert returns "Please fill out Username and Password."
 
   Scenario Outline: Signup without filling one of required values
     Given I navigate to the homepage
     And I click on the "sign_up" option on the navigation bar
     When I fill in only "<required_value>" and click on the signup button
-    Then Alert returns correct "Please fill out Username and Password." message
+    Then Alert returns "Please fill out Username and Password."
     Examples:
       |required_value  |
       |username        |

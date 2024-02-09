@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from core.utils import Context
 
 
-@then(parsers.cfparse('Alert returns correct "{expected_alert_message}" message'))
+@then(parsers.cfparse('Alert returns "{expected_alert_message}"'))
 def check_account_creation(expected_alert_message, actual_alert_message):
     assert_that(actual_alert_message).is_equal_to(expected_alert_message)
 
