@@ -13,6 +13,7 @@ from dsl.pages.sign_up import SignUp
 
 @pytest.fixture(scope='class', autouse=True)
 def load_config():
+    """Fixture for loading config files used by tests to memory."""
     load_yaml('settings.yml')
     load_yaml('locators.yml')
     Context.browser = webdriver.Edge()
@@ -25,6 +26,7 @@ def load_config():
 
 @pytest.fixture(autouse=True)
 def init_classes():
+    """Fixture for initializing instances of various classes used by the tests."""
     Context.base_actions = BaseActions(Context.browser)
     Context.sign_up = SignUp(Context.browser)
     Context.sign_in = SignIn(Context.browser)
