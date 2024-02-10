@@ -1,5 +1,5 @@
 Feature: Home Page
-  As a user, I should be able to sign into my an account by filling username and password fields in the sign in pop up window
+  As a user, I should be to navigate to the homepage and filter between available categories
 
   Scenario Outline: Select Category
     Given I navigate to the homepage

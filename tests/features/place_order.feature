@@ -1,14 +1,9 @@
 Feature: Place Order Pop Up
-  As a user, I should be able to sign into my an account by filling username and password fields in the sign in pop up window
+  As a user, I should be able to place an order for available products
 
 
   Scenario Outline: Place order for each category
-    Given I navigate to the homepage
-    When I click on the "<category_option>" category
-    Then Products are filtered to reflect "<category_option>" category
-    When I select a product from "<category_option>"
-    And I click on add product to cart button
-    Then Alert returns "Product added"
+    Given I have a product with "<category_option>" added to cart
     When I click on the "cart" option on the navigation bar
     And I place an order with "<customer_name>", "<country>", "<city>", "<credit_card>", "<month>" and "<year>"
     Then Order was successfully placed
