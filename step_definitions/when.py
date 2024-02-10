@@ -1,3 +1,5 @@
+import time
+
 from pytest_bdd import when, given, parsers
 from selenium.webdriver.common.by import By
 from core.utils import Context, generate_username, generate_password
@@ -59,3 +61,29 @@ def fill_in_single_value_sign_in(required_value):
       target_fixture="actual_alert_message")
 def fill_in_single_value_sign_in(email, name, message):
     return Context.contact.send_message(email, name, message)
+
+
+@when(parsers.cfparse('I click on the "{category_option}" category'), target_fixture="category_items")
+def select_category(category_option):
+    Context.home_page.select_category(category_option)
+    Context.home_page.wait_until_page_loads()
+    return Context.home_page.get_category_items()
+
+
+@when(parsers.cfparse('I select a product from "{category_option}"'), target_fixture="category_items")
+def select_product_from_category(category_option, category_items):
+    category_items[0].click()
+
+
+@when("I click on add product to cart button", target_fixture="actual_alert_message")
+def add_product_to_cart():
+    return Context.product_page.add_to_cart()
+
+
+@when(parsers.cfparse('I place an order with "{customer_name}", "{country}", "{city}", "{credit_card}", "{month}" and '
+                      '"{year}"'), target_fixture="actual_alert_message")
+def place_order(customer_name, country, city, credit_card, month, year):
+    Context.cart.click_place_order_button()
+    return Context.place_order.fill_in_form(customer_name=customer_name, country=country, city=city,
+                                            credit_card=credit_card, month=month, year=year)
+

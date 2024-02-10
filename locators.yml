@@ -5,6 +5,7 @@ locators:
         phones: //*[contains(@onclick, "byCat('phone')")]
         laptops: //*[contains(@onclick, "byCat('notebook')")]
         monitors: //*[contains(@onclick, "byCat('monitor')")]
+      category_container: div[id='tbodyid'] > div
       nav_bar:
         cart: //*[@id="cartur"]
         login: //*[@id="login2"]
@@ -13,6 +14,19 @@ locators:
         contact: //*[contains(@data-target, "#exampleModal")]
         about_us: //*[contains(@data-target, "#videoModal")]
         welcome_message: //*[@id="nameofuser"]
+    product_page:
+      add_to_cart_button: //*[@class="btn btn-success btn-lg"]
+      product_image: //*[@id="imgp"]/div/img
+      product_price: //*[@id="tbodyid"]/h3
+      product_name: //*[@id="tbodyid"]/h2
+      product_description: //*[@id="more-information"]
+    cart:
+      total_price: //*[@id="totalp"]
+      place_order_button: //*[contains(@data-target, "#orderModal")]
+      pic: //*[text() = "Pic"]
+      title: //*[text() = "Title"]
+      price: //*[text() = "Price"]
+      delete: //*[text() = "x"]
   pop_ups:
     login:
       username_field: //input[@id="loginusername"]
@@ -33,5 +47,15 @@ locators:
       message_field: //*[@id="message-text"]
       send_button: //*[contains(@onclick, "send()")]
       close_button: //*[@id="exampleModal"]/div/div/div[3]/button[1]
+    place_order:
+      name_field: //*[@id="name"]
+      country_field: //*[@id="country"]
+      city_field: //*[@id="city"]
+      card_field: //*[@id="card"]
+      month_field: //*[@id="month"]
+      year_field: //*[@id="year"]
+      purchase_button: //*[contains(@onclick, "purchaseOrder()")]
+      close_button: //*[@id="orderModal"]/div/div/div[3]/button[1]
+      confirmation_message: //*[text() = "Thank you for your purchase!"]
 
 

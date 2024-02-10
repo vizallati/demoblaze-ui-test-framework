@@ -6,3 +6,10 @@ class Timeout(Enum):
     MEDIUM_ELEMENT_WAIT = 30
     LONG_ELEMENT_WAIT = 40
 
+
+EXPECTED_NUMBER_OF_PRODUCTS_PER_PAGE = {
+    'laptops': 6,
+    'phones': 7,
+    'monitors': 2
+}
+

@@ -21,6 +21,7 @@ class BaseActions:
           driver: The WebDriver instance used for browser interaction.
 
     """
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -67,6 +68,36 @@ class BaseActions:
             try:
                 element = WebDriverWait(self.driver, Timeout.LONG_ELEMENT_WAIT.value).until(
                     expected_conditions.element_to_be_clickable((by, web_element)))
+                logging.info(f'Successfully waited for web-element: {web_element}')
+                return element
+            except TimeoutException:
+                if retry < max_retries - 1:
+                    self.driver.refresh()
+                    logging.info(f'Retrying ({retry + 1}/{max_retries}) after page refresh...')
+                else:
+                    logging.error(f'Failed to locate web-element: {web_element} after {max_retries} retries')
+                    raise
+
+    def wait_for_elements(self, by, web_element, max_retries=3):
+        """
+        Waits for all web elements located to be visible and returns them in a list
+
+        Args:
+            by (str): The method to locate the element, e.g., 'id', 'name', 'xpath'.
+            web_element (str): The value of the element locator.
+            max_retries (int, optional): The maximum number of retries (default is 3).
+
+        Returns:
+            selenium.webdriver.remote.webelement.WebElement: The located web element.
+
+        Raises:
+            TimeoutException: If the element is not found within the specified timeout.
+        """
+
+        for retry in range(max_retries):
+            try:
+                element = WebDriverWait(self.driver, Timeout.LONG_ELEMENT_WAIT.value).until(
+                    expected_conditions.visibility_of_all_elements_located((by, web_element)))
                 logging.info(f'Successfully waited for web-element: {web_element}')
                 return element
             except TimeoutException:
@@ -182,3 +213,7 @@ class BaseActions:
         except Exception as error:
             logging.error(error)
             raise error
+
+    def wait_until_page_loads(self, timeout=Timeout.SHORT_ELEMENT_WAIT.value):
+        WebDriverWait(self.driver, timeout, poll_frequency=2).until(lambda x: str(x.execute_script("return "
+                                                                                                   "document.readyState") == "complete"))
