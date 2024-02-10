@@ -3,7 +3,6 @@ import string
 import time
 import random
 import yaml
-import logging
 from allure_commons.model2 import Link, Label
 from allure_commons.types import LinkType, LabelType
 

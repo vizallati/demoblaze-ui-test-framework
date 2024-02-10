@@ -1,5 +1,5 @@
 Feature: Contact
-  As a user, I should be able to send message from contact pop up
+  As a user, I should be able to navigate to and send message from the contact pop up
 
   Scenario Outline: Send message
     Given I navigate to the homepage

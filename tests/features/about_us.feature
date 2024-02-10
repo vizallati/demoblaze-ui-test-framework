@@ -1,5 +1,5 @@
 Feature: About Us
-  As a user, I should be able to sign into my an account by filling username and password fields in the sign in pop up window
+  As a user, I should be able to navigate to the about us pop on the navigation bar and view the content
 
 
   Scenario: View content in about us pop up

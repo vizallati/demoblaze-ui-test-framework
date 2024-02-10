@@ -1,7 +1,6 @@
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-
 from core.constants import Timeout
 import logging
 

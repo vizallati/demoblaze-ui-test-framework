@@ -1,7 +1,8 @@
 from core.utils import Context, generate_username, generate_password
-from pytest_bdd import given
+from pytest_bdd import given, parsers
 from step_definitions.then import check_account_login
-from step_definitions.when import navigate_to_nav_bar_option, fill_in_sign_in_pop_up
+from step_definitions.when import navigate_to_nav_bar_option, fill_in_sign_in_pop_up, select_category, \
+    select_product_from_category, add_product_to_cart
 
 
 @given('I navigate to the homepage')
@@ -25,3 +26,11 @@ def create_and_login_account():
     navigate_to_nav_bar_option(nav_bar_option='login')
     fill_in_sign_in_pop_up()
     check_account_login()
+
+
+@given(parsers.cfparse('I have a product with "{category_option}" added to cart'))
+def given_add_product_to_cart(category_option):
+    navigate_to_homepage()
+    category_items = select_category(category_option)
+    select_product_from_category(category_option, category_items)
+    add_product_to_cart()

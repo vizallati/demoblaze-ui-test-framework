@@ -1,14 +1,9 @@
 Feature: Cart Page
-  As a user, I should be able to sign into my an account by filling username and password fields in the sign in pop up window
+  As a user, I should be able to interact with the cart page with actions like adding products to cart...
 
 
   Scenario Outline: Check cart content for each category
-    Given I navigate to the homepage
-    When I click on the "<category_option>" category
-    Then Products are filtered to reflect "<category_option>" category
-    When I select a product from "<category_option>"
-    And I click on add product to cart button
-    Then Alert returns "Product added"
+    Given I have a product with "<category_option>" added to cart
     When I click on the "cart" option on the navigation bar
     Then Cart page has all the has all required content(total price, place order button, pic, title, price and delete)
     Examples:

@@ -63,6 +63,7 @@ def fill_in_single_value_sign_in(email, name, message):
     return Context.contact.send_message(email, name, message)
 
 
+@given(parsers.cfparse('I click on the "{category_option}" category'), target_fixture="category_items")
 @when(parsers.cfparse('I click on the "{category_option}" category'), target_fixture="category_items")
 def select_category(category_option):
     Context.home_page.select_category(category_option)
@@ -86,4 +87,3 @@ def place_order(customer_name, country, city, credit_card, month, year):
     Context.cart.click_place_order_button()
     return Context.place_order.fill_in_form(customer_name=customer_name, country=country, city=city,
                                             credit_card=credit_card, month=month, year=year)
-
