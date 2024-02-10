@@ -17,26 +17,6 @@ class Context:
     pass
 
 
-def expanded_raise_for_status(response):
-    """
-    Check if the response status is not OK (i.e., not in the 2xx range).
-
-    If the status is not OK, log details about the request and response.
-
-    Parameters:
-    - response (requests.Response): The HTTP response object to check.
-
-    Returns:
-    None
-    """
-    try:
-        response.raise_for_status()
-    except Exception as e:
-        logging.error(f" Not an OK response: {e}")
-        logging.error(f" Request body: {response.request.method} {response.request.body}")
-        logging.error(f" Response body: {response.content}")
-
-
 def load_yaml(file):
     """
     Load YAML data from a file and set as attributes of the Context class.

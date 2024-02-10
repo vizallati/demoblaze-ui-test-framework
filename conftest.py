@@ -1,14 +1,19 @@
+import os
 import allure
 import pytest
 from selenium import webdriver
-from core.base_actions import BaseActions
-from core.utils import load_yaml, Context, add_tags_allure, add_links_allure
-from allure_commons import plugin_manager
-from allure_pytest_bdd.pytest_bdd_listener import PytestBDDListener
-from dsl.pages.about_us import AboutUs
+from dsl.pages.cart import CartPage
+from dsl.pages.home import HomePage
+from dsl.pages.sign_up import SignUp
 from dsl.pages.contact import Contact
 from dsl.pages.sign_in import SignIn
-from dsl.pages.sign_up import SignUp
+from dsl.pages.about_us import AboutUs
+from dsl.pages.product import ProductPage
+from allure_commons import plugin_manager
+from core.base_actions import BaseActions
+from dsl.pages.place_order import PlaceOrder
+from allure_pytest_bdd.pytest_bdd_listener import PytestBDDListener
+from core.utils import load_yaml, Context, add_tags_allure, add_links_allure
 
 
 @pytest.fixture(scope='class', autouse=True)
@@ -16,7 +21,14 @@ def load_config():
     """Fixture for loading config files used by tests to memory."""
     load_yaml('settings.yml')
     load_yaml('locators.yml')
-    Context.browser = webdriver.Edge()
+
+
+@pytest.fixture(scope='class', autouse=True)
+def initialize_webdriver():
+    if os.getenv('BROWSER') == 'Edge':
+        Context.browser = webdriver.Edge()
+    else:
+        Context.browser = webdriver.Chrome()
     Context.browser.maximize_window()
 
     yield
@@ -32,6 +44,10 @@ def init_classes():
     Context.sign_in = SignIn(Context.browser)
     Context.about_us = AboutUs(Context.browser)
     Context.contact = Contact(Context.browser)
+    Context.home_page = HomePage(Context.browser)
+    Context.product_page = ProductPage(Context.browser)
+    Context.cart = CartPage(Context.browser)
+    Context.place_order = PlaceOrder(Context.browser)
 
 
 @pytest.hookimpl(hookwrapper=True)

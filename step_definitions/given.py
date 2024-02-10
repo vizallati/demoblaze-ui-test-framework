@@ -9,7 +9,7 @@ def navigate_to_homepage():
     Context.base_actions.navigate_to_url(Context.base_url)
 
 
-@given('I have a user already created')
+@given('I have an account already created')
 def create_user_account():
     navigate_to_homepage()
     navigate_to_nav_bar_option(nav_bar_option='sign_up')

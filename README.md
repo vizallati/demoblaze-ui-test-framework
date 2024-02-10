@@ -51,7 +51,7 @@ Run the tests using the following command:
 ```bash
 pytest
 ```
-This command will execute the tests and generate Allure report data in the allure-results directory (These run configurations are all set in the pytest.ini file)
+This command will execute the tests and generate Allure report data in the allure-results directory (These run configurations like browser option are all set in the pytest.ini file)
 
 ### Generating Allure Report
 To generate and view the Allure report, run the following commands:
@@ -64,3 +64,5 @@ This will generate the Allure report and open it in your default web browser.
 ### Issues found
 1. User is able to place order with no item present in cart
 2. User is able to send contact message without filling any of the fields in the contact form.
+3. User is able to place order after filling only name and credit card number
+4. The place order form does not ask for contact information (email or phone number) needed to update the customer on the progress of their order, and credit card CVV
