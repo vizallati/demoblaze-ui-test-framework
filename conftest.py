@@ -17,7 +17,7 @@ from core.utils import load_yaml, Context, add_tags_allure, add_links_allure
 
 
 @pytest.fixture(scope='class', autouse=True)
-def load_config(request):
+def load_config():
     """Fixture for loading config files used by tests to memory."""
     load_yaml('settings.yml')
     load_yaml('locators.yml')
