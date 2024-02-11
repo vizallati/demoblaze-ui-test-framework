@@ -44,7 +44,7 @@ cd demoblaze-ui-test-framework
 pip install -r requirements.txt
 ```
 ### Running Tests
-Before running the tests edit the settings.yml with respective values
+Before running the tests edit the settings.yml file with respective values and make sure you have the browser specified in the pytest.ini file installed (Google Chrome or Microsoft Edge)
 
 Run the tests using the following command:
 
