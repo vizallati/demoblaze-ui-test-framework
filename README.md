@@ -37,10 +37,25 @@ To clone the repository, run the following command in your terminal:
 git clone https://github.com/vizallati/demoblaze-ui-test-framework.git
 ```
 ### Installation
-Navigate to the project directory and install the required dependencies:
 
+1. Navigate to the project directory 
 ```bash
 cd demoblaze-ui-test-framework
+```
+2. Create virtual environment
+```bash
+python -m venv virtual_environment
+```
+3. Activate virtual environment
+```bash
+# On Windows
+virtual_environment\Scripts\activate
+# On macOS/Linux
+source virtual_environment/bin/activate
+```
+4. Install the required dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 ### Running Tests
