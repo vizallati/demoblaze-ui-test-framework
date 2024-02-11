@@ -14,6 +14,8 @@ from core.base_actions import BaseActions
 from dsl.pages.place_order import PlaceOrder
 from allure_pytest_bdd.pytest_bdd_listener import PytestBDDListener
 from core.utils import load_yaml, Context, add_tags_allure, add_links_allure
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.edge.options import Options as EdgeOptions
 
 
 @pytest.fixture(scope='class', autouse=True)
@@ -25,11 +27,17 @@ def load_config():
 
 @pytest.fixture(scope='class', autouse=True)
 def initialize_webdriver():
+    """Fixture for initializing webdriver browser instance with given options"""
     if os.getenv('BROWSER') == 'Edge':
-        Context.browser = webdriver.Edge()
+        options = EdgeOptions()
+        # options.add_argument('--headless')
+        options.add_argument('--start-maximized')
+        Context.browser = webdriver.Edge(options=options)
     else:
-        Context.browser = webdriver.Chrome()
-    Context.browser.maximize_window()
+        chrome_options = Options()
+        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--start-maximized')
+        Context.browser = webdriver.Chrome(options=chrome_options)
 
     yield
 
